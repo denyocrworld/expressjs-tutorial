@@ -1,7 +1,7 @@
 // index.ts
 import express from "express";
 import sequelize from "./database/database_config";
-import { Task } from "./model/TaskModel";
+import { Task } from "./model/Task";
 const userRouter = require("./router/user_router");
 const productRouter = require("./router/product_router");
 const taskRouter = require("./router/task_router");

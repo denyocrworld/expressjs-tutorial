@@ -1,6 +1,6 @@
 import express from "express";
 const router = express.Router();
-import { Task } from "./../model/TaskModel";
+import { Task } from "../model/Task";
 
 router.use((req, res, next) => {
   console.log('Time:', Date.now())
