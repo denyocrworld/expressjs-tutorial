@@ -8,7 +8,6 @@ const taskRouter = require("./router/task_router");
 
 // Inisialisasi aplikasi Express
 const app = express();
-const adminRouter = express.Router();
 
 // Sinkronisasi model dengan database SQLite
 
@@ -21,13 +20,6 @@ sequelize.sync({ force: true }).then(() => {
 
 // Middleware untuk mengizinkan parsing JSON
 app.use(express.json());
-
-//middleware global
-// app.use((req, res, next) => {
-//   console.log('Time:', Date.now())
-//   next()
-// });
-
 app.get("/", (req, res) => {
   res.send("Hello, TypeScript Express!");
 });
