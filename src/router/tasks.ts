@@ -2,45 +2,6 @@ import express from "express";
 const router = express.Router();
 import { Task } from "../model/task";
 import { Op } from "sequelize";
-/*
-router.get("/", async (req: any, res: any) => {
-  let tasks = await Task.findAll();
-  res.json({
-    data: tasks,
-  });
-});
-*/
-
-/*
-router.get("/", async (req: any, res: any) => {
-  try {
-    const page = parseInt(req.query.page || "1"); // Halaman default 1 jika tidak ada query parameter 'page'
-    const perPage = parseInt(req.query.perPage || "10"); // Jumlah item per halaman default 10 jika tidak ada query parameter 'perPage'
-
-    const offset = (page - 1) * perPage; // Hitung offset berdasarkan halaman dan jumlah item per halaman
-    const totalCount = await Task.count(); // Hitung total jumlah task
-    const totalPages = Math.ceil(totalCount / perPage); // Hitung total halaman berdasarkan jumlah item per halaman
-
-    const tasks = await Task.findAll({
-      offset,
-      limit: perPage,
-    });
-
-    res.json({
-      data: tasks,
-      page,
-      perPage,
-      totalItems: totalCount,
-      totalPages,
-    });
-  } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({
-      error: "Internal Server Error",
-    });
-  }
-});
-*/
 
 // Rute GET dengan paginasi, pencarian, dan pengurutan
 router.get("/", async (req: any, res: any) => {
@@ -80,6 +41,7 @@ router.get("/", async (req: any, res: any) => {
       sort_field: sortField,
       sort_order: sortOrder,
     });
+    
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({
