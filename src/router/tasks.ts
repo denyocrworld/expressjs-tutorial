@@ -7,7 +7,7 @@ import { Op } from "sequelize";
 router.get("/", async (req: any, res: any) => {
   try {
     const page = parseInt(req.query.page || "1");
-    const perPage = parseInt(req.query.perPage || "10");
+    const perPage = parseInt(req.query.per_page || "10");
     const search = req.query.search || "";
     const sortField = req.query.sort_field || "createdAt"; 
     const sortOrder = req.query.sort_order || "asc"; 
@@ -41,9 +41,7 @@ router.get("/", async (req: any, res: any) => {
       sort_field: sortField,
       sort_order: sortOrder,
     });
-    
   } catch (error) {
-    console.error("Error:", error);
     res.status(500).json({
       error: "Internal Server Error",
     });
