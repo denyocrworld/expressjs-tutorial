@@ -1,30 +1,36 @@
-import express from "express";
-const router = express.Router();
+// src/router/user_router.ts
+import { Router, Request, Response } from 'express';
+import { User } from './../model/user';
 
-router.get("/", (req: any, res: any) => {
-  res.json({
-    message: `GET ${req.query.search}`,
-  });
+const router = Router();
+
+// Index
+router.get('/', async (req: Request, res: Response) => {
+  const { page = 1, limit = 10 } = req.query as any;
+  const offset = (+page - 1) * +limit;
+
+  try {
+    const { count, rows } = await User.findAndCountAll({
+      offset,
+      limit: +limit,
+    });
+
+    const totalPages = Math.ceil(count / +limit);
+
+    res.json({
+      data: rows,
+      pagination: {
+        totalItems: count,
+        totalPages: totalPages,
+        currentPage: +page,
+        itemsPerPage: +limit,
+      },
+    });
+  } catch (err:any) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-router.post("/", (req: any, res: any) => {
-  res.json({
-    message: `POST`,
-    header: req.headers,
-    data: req.body,
-  });
-});
+// Define your CRUD routes here
 
-router.put("/:id", (req: any, res: any) => {
-  res.json({
-    message: `PUT: ${req.params.id} `,
-  });
-});
-
-router.delete("/:id", (req: any, res: any) => {
-  res.json({
-    message: "Delete",
-  });
-});
-
-module.exports = router;
+export default router;
